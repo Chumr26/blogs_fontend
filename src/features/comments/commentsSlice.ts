@@ -9,9 +9,11 @@ import { RootState } from '../../app/store';
 export interface Comment {
     ids: EntityId;
     id: string;
-    postId: string;
+    post: string;
     email: string;
-    body: string;
+    content: string;
+    owner: string;
+    created_at: string;
 }
 
 const commentsAdapter = createEntityAdapter<Comment>();
@@ -47,6 +49,6 @@ export const selectCommentsByPostId = createSelector(
     selectAllComments,
     (_, postId) => postId,
     (comments, postId) =>
-        comments.filter((comment: Comment) => comment.postId === postId)
+        comments.filter((comment: Comment) => comment.post === postId)
 );
 export default commentsSlice.reducer;

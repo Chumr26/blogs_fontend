@@ -4,7 +4,7 @@ import { RootState } from '../../app/store';
 export interface User {
     ids: EntityId;
     id: string;
-    name: string;
+    username: string;
 }
 
 const usersAdapter = createEntityAdapter<User>();

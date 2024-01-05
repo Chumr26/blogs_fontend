@@ -11,7 +11,7 @@ const Layout = ({ children }: { children: React.ReactElement }) => {
                     Logo
                 </div>
                 <Link to="/">
-                    <div className="text-4xl">BLOGS</div>
+                    <div className="text-4xl ml-56">BLOGS</div>
                 </Link>
                 <Search />
             </AntdLayout.Header>

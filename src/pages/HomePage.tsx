@@ -7,7 +7,7 @@ const HomePage = () => {
     return (
         <div>
             {posts.map((post) => (
-                <Blog key={post?.id} content={post} />
+                <Blog key={post?.id} post={post} />
             ))}
         </div>
     );

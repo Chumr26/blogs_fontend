@@ -6,10 +6,14 @@ export interface Post {
     id: string;
     title: string;
     body: string;
-    userId: string;
+    owner: string;
+    created_at: string;
+    content: string;
 }
 
-const postsAdapter = createEntityAdapter<Post>();
+const postsAdapter = createEntityAdapter<Post>({
+    sortComparer: (a, b) => b.created_at.localeCompare(a.created_at),
+});
 
 export const postsSlice = createSlice({
     name: 'posts',

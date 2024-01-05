@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function getPosts() {
     return axios
-        .get('https://jsonplaceholder.typicode.com/posts')
+        .get('http://localhost:3000/posts')
         .then((res) => {
             return res.data;
         })
@@ -13,7 +13,7 @@ export function getPosts() {
 
 export function getComments() {
     return axios
-        .get('https://jsonplaceholder.typicode.com/comments')
+        .get('http://localhost:3000/comments')
         .then((res) => {
             return res.data;
         })
@@ -24,7 +24,7 @@ export function getComments() {
 
 export function getUsers() {
     return axios
-        .get('https://jsonplaceholder.typicode.com/users')
+        .get('http://localhost:3000/users')
         .then((res) => {
             return res.data;
         })

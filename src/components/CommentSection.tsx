@@ -1,8 +1,11 @@
-import { Button, Collapse } from 'antd';
+import { Button, Collapse, Empty, List } from 'antd';
 
 import { useAppSelector } from '../app/hooks';
-import { selectCommentsByPostId } from '../features/comments/commentsSlice';
-import CommentList from './CommentList';
+import {
+    type Comment,
+    selectCommentsByPostId,
+} from '../features/comments/commentsSlice';
+import CommentsList from './CommentsList';
 
 const CommentSection = ({ postId }: { postId: string }) => {
     const comments = useAppSelector((state) =>
@@ -20,7 +23,27 @@ const CommentSection = ({ postId }: { postId: string }) => {
             )}
             items={[
                 {
-                    children: <CommentList comments={comments} />,
+                    children: (
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={comments}
+                            renderItem={(item: Comment) => (
+                                <CommentsList item={item} />
+                            )}
+                            locale={{
+                                emptyText: (
+                                    <Empty
+                                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                                        description={
+                                            <p className="dark:text-white">
+                                                No comment
+                                            </p>
+                                        }
+                                    />
+                                ),
+                            }}
+                        />
+                    ),
                 },
             ]}
         />
