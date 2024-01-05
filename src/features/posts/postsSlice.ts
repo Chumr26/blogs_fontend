@@ -1,6 +1,15 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, EntityId } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
-const postsAdapter = createEntityAdapter();
+export interface Post {
+    ids: EntityId;
+    id: string;
+    title: string;
+    body: string;
+    userId: string;
+}
+
+const postsAdapter = createEntityAdapter<Post>();
 
 export const postsSlice = createSlice({
     name: 'posts',
@@ -23,4 +32,6 @@ export const postsSlice = createSlice({
 
 export const { getPostSucces, getPostError, getPostPending } =
     postsSlice.actions;
+export const { selectAll: selectAllPost, selectById: selectPostById } =
+    postsAdapter.getSelectors((state: RootState) => state.posts);
 export default postsSlice.reducer;
