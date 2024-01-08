@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export function getPosts() {
+export function getPosts(currentIndex: number) {
     return axios
-        .get('http://localhost:3000/posts')
+        .get(`http://localhost:3000/posts/more?current=${currentIndex}`)
         .then((res) => {
             return res.data;
         })

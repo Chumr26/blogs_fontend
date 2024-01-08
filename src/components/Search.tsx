@@ -27,7 +27,6 @@ const Search = () => {
             onSelect={onSelect}
             placeholder="Searching. . ."
             filterOption={(inputValue, option) => {
-                console.log(option);
                 return (
                     option?.value
                         .toUpperCase()

@@ -1,11 +1,11 @@
-import { call, put, fork } from 'redux-saga/effects';
+import { call, put, fork, take } from 'redux-saga/effects';
 
 import { getPosts, getComments, getUsers } from './apis';
-// import {
-//     GET_COMMENTS_FETCH,
-//     GET_POSTS_FETCH,
-//     GET_USERS_FETCH,
-// } from './actions';
+import {
+    //     GET_COMMENTS_FETCH,
+    GET_POSTS_FETCH,
+    //     GET_USERS_FETCH,
+} from './actions';
 import {
     getPostSucces,
     getPostPending,
@@ -23,22 +23,17 @@ import {
 } from '../features/users/usersSlice';
 
 function* getPostsSaga(): Generator {
-    // while (true) {
-    try {
-        console.log('getPosts action ready...');
-        // yield take(GET_POSTS_FETCH);
-        console.log('getPosts action started...');
-        yield put(getPostPending());
-        const posts = yield call(getPosts);
-        console.log('getPosts action fetched...');
-        yield put(getPostSucces({ posts }));
-        console.log('getPosts action finished...');
-    } catch (error) {
-        console.log('getPosts action failed...');
-        yield put(getPostError({ error: (error as Error).message }));
-        console.log('getPosts action error finished...');
+    while (true) {
+        try {
+            const action = yield take(GET_POSTS_FETCH);
+            yield put(getPostPending());
+            // @ts-expect-error unknow type
+            const posts = yield call(getPosts, action.payload || 0);
+            yield put(getPostSucces({ posts }));
+        } catch (error) {
+            yield put(getPostError({ error: (error as Error).message }));
+        }
     }
-    // }
 }
 
 function* getCommentsSaga(): Generator {
@@ -71,6 +66,8 @@ function* getUsersSaga(): Generator {
 
 export default function* rootSaga(): Generator {
     yield fork(getPostsSaga);
-    yield fork(getCommentsSaga);
+    // fetch initial posts
+    yield put(GET_POSTS_FETCH());
     yield fork(getUsersSaga);
+    yield fork(getCommentsSaga);
 }
